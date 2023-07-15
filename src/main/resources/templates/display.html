@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Link Buttons</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+    body {
+      padding: 20px;
+    }
+
+    .button-container {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+<h1>Java graduate assessment solution By Matoka Morganne</h1>
+
+
+<div class="button-container">
+    <form id="imageForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" name="surname" required><br>
+
+        <label for="fileName">File Name:</label>
+        <input type="text" id="fileName" name="fileName" required><br>
+
+        <input type="button" class="btn btn-secondary" value="Submit" onclick="getImageLink()">
+    </form>
+    <p>Use the info below to access an image</p>
+    <p>Param 1: <span id="param1"></span></p>
+</div>
+
+<script>
+    function getImageLink() {
+        var name = document.getElementById('name').value;
+        var surname = document.getElementById('surname').value;
+        var fileName = document.getElementById('fileName').value;
+
+        var url = "/v1/api/image/" + name + "/" + surname + "/" + fileName;
+
+        document.getElementById('param1').textContent = name;
+        document.getElementById('imageForm').setAttribute('action', url);
+        document.getElementById('imageForm').submit();
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<p>Use the info below to access an image</p>
+<p>Param 1: <span th:text="${info}"></span></p>
