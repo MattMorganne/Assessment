@@ -52,7 +52,7 @@ public class FileFromfileDataParser {
             accountService.addAccount(accountProfile);
             ClassLoader classLoader = getClass().getClassLoader();
             String replace =    classLoader.getResource(".").getFile();
-            filesInfo.add("\n"+ i + ". " + accountProfile.getName() +", " +  accountProfile.getSurname() +", " +  accountProfile.getHttpImageLink().replace(replace,""));
+            filesInfo.add("\n\n"+ i + ". " + accountProfile.getName() +", " +  accountProfile.getSurname() +", " +  accountProfile.getHttpImageLink().replace(replace.substring(1,replace.length()),""));
         }
 
         return filesInfo.toString();

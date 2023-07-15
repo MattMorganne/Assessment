@@ -28,7 +28,6 @@ public class ImageController {
     }
 
     @GetMapping("/{name}/{surname}/{\\w\\.\\w}")
-    @ResponseBody
     public FileSystemResource getHttpImageLink(@PathVariable String name,
                                                @PathVariable String surname,
                                                @PathVariable("\\w\\.\\w") String fileName) {

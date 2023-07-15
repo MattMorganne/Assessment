@@ -4,6 +4,8 @@ import com.eviro.assessment.grad001.MorganneMatoka.Assessment.model.AccountProfi
 import com.eviro.assessment.grad001.MorganneMatoka.Assessment.repository.AccountProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -33,7 +35,11 @@ public class AccountService {
         System.out.println(filePath);
         AccountProfile profile = accountProfileRepository.findByHttpImageLink(filePath);
 
-        File imageFile = new File((profile.getHttpImageLink()));
-        return new FileSystemResource(imageFile);
+        File imageFile = new File((filePath));
+        FileSystemResource imageResource =new FileSystemResource(imageFile);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG) // Modify the media type according to your image format
+                .body(imageResource).getBody();
     }
 }
