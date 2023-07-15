@@ -4,6 +4,7 @@ import com.eviro.assessment.grad001.MorganneMatoka.Assessment.model.AccountProfi
 import com.eviro.assessment.grad001.MorganneMatoka.Assessment.repository.AccountProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,18 +29,23 @@ public class AccountService {
         return accountProfileRepository.findByHttpImageLink(httpImageLink);
     }
 
-    public FileSystemResource getAccountHttpLink(String filePath) {
+    public ResponseEntity<FileSystemResource> getAccountHttpLink(String filePath) {
         ClassLoader classLoader = getClass().getClassLoader();
         filePath =   classLoader.getResource(".").getFile()  + filePath;
         filePath = filePath.substring(1,filePath.length());
         System.out.println(filePath);
         AccountProfile profile = accountProfileRepository.findByHttpImageLink(filePath);
 
-        File imageFile = new File((filePath));
-        FileSystemResource imageResource =new FileSystemResource(imageFile);
+        File imageFile = new File((profile.getHttpImageLink()));
+
+
+        FileSystemResource imageResource=  new FileSystemResource(imageFile);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
 
         return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG) // Modify the media type according to your image format
-                .body(imageResource).getBody();
+                .headers(headers)
+                .body(imageResource);
     }
 }
