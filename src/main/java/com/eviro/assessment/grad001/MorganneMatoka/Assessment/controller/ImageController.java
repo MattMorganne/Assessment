@@ -28,10 +28,9 @@ public class ImageController {
     }
 
     @GetMapping("/{name}/{surname}/{fileName}")
-    @ResponseBody
-    public String getHttpImageLink(@PathVariable String name, @PathVariable String surname, @PathVariable String fileName) {
-
-            return accountService.getAccountHttpLink(fileName).toString();
+    public FileSystemResource getHttpImageLink(@PathVariable String name, @PathVariable String surname, @PathVariable String fileName) {
+        System.out.println(accountService.getAccountHttpLink(fileName));
+            return accountService.getAccountHttpLink(fileName);
 
     }
 
