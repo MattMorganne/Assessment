@@ -27,12 +27,12 @@ public class ImageController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/{name}/{surname}/{fileName}")
-    public FileSystemResource getHttpImageLink(@PathVariable String name, @PathVariable String surname, @PathVariable String fileName) {
-        System.out.println(accountService.getAccountHttpLink(fileName));
-            return accountService.getAccountHttpLink(fileName);
-
+    @GetMapping("/{name}/{surname}/{\\w\\.\\w}")
+    @ResponseBody
+    public FileSystemResource getHttpImageLink(@PathVariable String name,
+                                               @PathVariable String surname,
+                                               @PathVariable("\\w\\.\\w") String fileName) {
+        return accountService.getAccountHttpLink(fileName);
     }
-
 
 }

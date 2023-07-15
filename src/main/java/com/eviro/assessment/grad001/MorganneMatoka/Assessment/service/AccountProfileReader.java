@@ -16,6 +16,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,9 +65,11 @@ public class AccountProfileReader implements FileParser {
         File outputFile = null;
 
         try {
+            Random random = new Random();
+
             byte[] imageBytes = Base64.getDecoder().decode(base64Image);
             ClassLoader classLoader = getClass().getClassLoader();
-            String outputPath = classLoader.getResource(".").getFile() +"/" + Instant.now().getEpochSecond() + ".jpg";
+            String outputPath = classLoader.getResource(".").getFile() +"/image" + random.nextInt(6000) + ".jpg";
             fos = new FileOutputStream(outputPath);
             fos.write(imageBytes);
             outputFile = new File(outputPath);
